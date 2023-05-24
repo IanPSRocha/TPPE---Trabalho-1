@@ -1,5 +1,25 @@
 import unittest
 from completude import completude_registro, Publicacao, Autor, completude_registro_or_exclusivo
+from parameterized import parameterized_class
+
+
+@parameterized_class([
+    {"publicacao": Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
+                              [Autor('Paulo', 'lattes1', '', 'nationalitysssspaulo', 'birthCountryssspaulo', 'birthCityssspaulo',
+                                    'birthStatesssspaulo')])
+                              , "expected": True},
+    {"publicacao": Publicacao('titulo2', 'data de publicacao2', 'linguagem2',
+                               [Autor('Paulo2', 'lattes2', '', 'nationalitysssspaulo2', 'birthCountryssspaulo2',
+                                      'birthCityssspaulo2',
+                                      'birthStatesssspaulo2')])
+                               , "expected": True},
+    {"publicacao": Publicacao('titulo3', 'data de publicacao3', 'linguagem3',
+                              [Autor('Paulo3', 'lattes3', 'orcidsss3', 'nationalitysssspaulo3', 'birthCountryssspaulo3',
+                                     'birthCityssspaulo3',
+                                     'birthStatesssspaulo3')])
+                              , "expected": False}
+
+])
 
 
 class CompletudeTestCase(unittest.TestCase):
@@ -22,6 +42,10 @@ class CompletudeTestCase(unittest.TestCase):
         publicacao2 = Publicacao('titulo2', 'data de publicacao2', 'linguagem2',
                                  [Autor('Jão', '', 'orcidsssJão', 'nationalityssssJão', 'birthCountrysssJão',
                                         'birthCitysssJão', 'birthStatessssJão')]
-                                 )
+                                )
 
         self.assertTrue(completude_registro_or_exclusivo(publicacao2))
+
+    #Espera-se um booleano sobre os registros complestos e incompletos
+    def test_completude_registro_or_exclusivo_triangulado(self):
+        self.assertEqual(completude_registro_or_exclusivo(self.publicacao), self.expected)
