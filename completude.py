@@ -23,36 +23,41 @@ def completude_campo(campo):
         return True
     return False
 
-
 def completude_registro(self):
     return 1.0
-
 
 def completude_registro_or_exclusivo(self):
     """Função para calcular a completude de um registro OR Exclusivo
        Retorna a quantidade de registros completos e incompletos"""
-
+    exclusivo_completo = []
+    exclusivo_incompleto = []
     # Verificar completude dos campos aninhados OR exclusivo
     for i in range(len(self.autores)):
         if completude_campo(self.autores[i].lattes) != completude_campo(self.autores[i].orcid):
-            return True
+            exclusivo_completo.append(self.autores[i])
         else:
-            return False
+            exclusivo_incompleto.append(self.autores[i])
+            
+    return len(exclusivo_completo) / len(exclusivo_completo + exclusivo_incompleto)
 
 
 def completude_registro_or_inclusivo(self):
     """Função para calcular a completude de um registro OR Inclusivo
        Retorna a quantidade de registros completos e incompletos"""
 
+    inclusivo_completo = []
+    inclusivo_incompleto = []
     # Verificar completude dos campos aninhados OR inclusivo
-    for autor in range(len(self.autores)):
-        if ((completude_campo(self.autores[autor].nationality)) or (
-        completude_campo(self.autores[autor].birthCountry))
-                or (completude_campo(self.autores[autor].birthCity) or (
-                completude_campo(self.autores[autor].birthState)))):
-            return True
+    for i in range(len(self.autores)):
+        if ((completude_campo(self.autores[i].nationality)) or (
+        completude_campo(self.autores[i].birthCountry))
+                or (completude_campo(self.autores[i].birthCity) or (
+                completude_campo(self.autores[i].birthState)))):
+            inclusivo_completo.append(self.autores[i])
         else:
-            return False
+            inclusivo_incompleto.append(self.autores[i])
+
+    return len(inclusivo_completo) / len(inclusivo_completo + inclusivo_incompleto)
 
 def completude_registro_atomico(self):
     """Função para calcular a completude de um registro atômico       
