@@ -34,7 +34,20 @@ from parameterized import parameterized_class
 class CompletudeTestCase(unittest.TestCase):
     #Toda publicação em porcentagem
     def test_completude_registro(self):
-        self.assertEqual(completude_registro(self), 1.0)
+        publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
+                                 [Autor('Paulo', 'lattes1', 'orcide', 'nationalitysssspaulo',
+                                        'birthCountryssspaulo',
+                                        'birthCityssspaulo', 'birthStatesssspaulo')]
+                                 )
+        self.assertEqual(completude_registro(publicacao1), 66.67)
+
+    def test_completude_registro_duplicado(self):
+        publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
+                                 [Autor('Paulo', 'lattes1', '', 'nationalitysssspaulo',
+                                        'birthCountryssspaulo',
+                                        'birthCityssspaulo', 'birthStatesssspaulo')]
+                                 )
+        self.assertEqual(completude_registro(publicacao1), 100.0)
 
     #Espera-se um booleano sobre registros completos e incompletos
     def test_completude_registro_or_exclusivo(self):

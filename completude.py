@@ -24,7 +24,13 @@ def completude_campo(campo):
     return False
 
 def completude_registro(self):
-    return 1.0
+
+    porcentagem_atomica = completude_registro_atomico(self)
+    porcentagem_or_exclusivo = completude_registro_or_exclusivo(self)
+    porcentagem_or_inclusivo = completude_registro_or_inclusivo(self)
+    porcentagem_total = ((porcentagem_atomica + porcentagem_or_exclusivo + porcentagem_or_inclusivo) / 3 ) * 100
+
+    return round(porcentagem_total, 2)
 
 def completude_registro_or_exclusivo(self):
     """Função para calcular a completude de um registro OR Exclusivo
