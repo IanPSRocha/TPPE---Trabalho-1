@@ -18,5 +18,12 @@ class Publicacao:
 
 
 def completude_registro(self):
-    """Função para calcular a completude de um registro (Publicação)"""
     return 1.0
+
+
+def completude_registro_or_exclusivo(self):
+    return 1.0
+
+
+
+
