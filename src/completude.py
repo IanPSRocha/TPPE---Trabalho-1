@@ -8,6 +8,7 @@ class Autor:
         self.birthCity = birthCity
         self.birthState = birthState
 
+
 class Publicacao:
     def __init__(self, title, publicationDate, language, autores):
         self.title = title
@@ -15,13 +16,17 @@ class Publicacao:
         self.language = language
         self.autores = autores
 
+
 def completude_campo(campo):
     # Verificar completude do campo
-    if campo:
+    if campo or campo != '':
         return True
     return False
 
-def completude_registro(publicacao):
+
+def completude_registro(self):
+    publicacao = self.publicacao
+
     # Verificar completude dos campos atômicos
     atomico_completo = []
     atomico_incompleto = []
@@ -37,22 +42,22 @@ def completude_registro(publicacao):
     # Verificar completude dos campos aninhados OR exclusivo
     or_exclusivo_completo = []
     or_exclusivo_incompleto = []
-    for autor in publicacao.autores:
-        if completude_campo(publicacao.autores[autor].lattes) != completude_campo(publicacao.autores[autor].orcid):
-            or_exclusivo_completo.append(autor)
+    for i in range(len(publicacao.autores)):
+        if completude_campo(publicacao.autores[i].lattes) != completude_campo(publicacao.autores[i].orcid):
+            or_exclusivo_completo.append(publicacao.autores[i].name)
         else:
-            or_exclusivo_incompleto.append(autor)    
+            or_exclusivo_incompleto.append(publicacao.autores[i].name)
 
     # Verificar completude dos campos aninhados OR inclusivo
     or_inclusivo_completo = []
     or_inclusivo_incompleto = []
 
-    for autor in publicacao.autores:
+    for autor in range(len(publicacao.autores)):
         if ((completude_campo(publicacao.autores[autor].nationality)) or (completude_campo(publicacao.autores[autor].birthCountry))
         or (completude_campo(publicacao.autores[autor].birthCity) or (completude_campo(publicacao.autores[autor].birthState)))):
-            or_exclusivo_completo.append(autor)
+            or_inclusivo_completo.append(publicacao.autores[autor].name)
         else:
-            or_exclusivo_incompleto.append(autor)    
+            or_inclusivo_incompleto.append(publicacao.autores[autor].name)
 
     campos_completos = atomico_completo + or_exclusivo_completo + or_inclusivo_completo
     campos_incompletos = atomico_incompleto + or_exclusivo_incompleto + or_inclusivo_incompleto
