@@ -1,21 +1,35 @@
 import unittest
 from completude import completude_registro, Autor, Publicacao
-from parameterized import parameterized, parameterized_class
+from parameterized import parameterized_class
 
 
 @parameterized_class([
-    {"publicacao": Publicacao('titulo', 'data de publicacao', 'linguagem',
-                              Autor('Paulo', '', 'orcidsss', 'nationalityssss', 'birthCountrysss', 'birthCitysss',
-                                    'birthStatessss')), "expected": 1.0}
+    {"publicacao": Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
+                              [Autor('Paulo', '', 'orcidssspaulo', 'nationalitysssspaulo', 'birthCountryssspaulo', 'birthCityssspaulo',
+                                    'birthStatesssspaulo'),
+                              Autor('João', '', 'orcidsssJoão', 'nationalityssssJoão', 'birthCountrysssJoão', 'birthCitysssJoão',
+                                     'birthStatessssJoão'),
+                              Autor('Ian', '', 'orcidsssIan', 'nationalityssssIan', 'birthCountrysssIan', 'birthCitysssIan',
+                                    'birthStatessssIan')]
+                              ), "expected": 1.0},
+    {"publicacao": Publicacao('titulo2', 'data de publicacao2', 'linguagem2',
+                               [Autor('Paulo2', '', 'orcidssspaulo2', 'nationalitysssspaulo2', 'birthCountryssspaulo2',
+                                      'birthCityssspaulo2',
+                                      'birthStatesssspaulo2'),
+                                Autor('João2', '', 'orcidsssJoão2', 'nationalityssssJoão2', 'birthCountrysssJoão',
+                                      'birthCitysssJoão',
+                                      'birthStatessssJoão'),
+                                Autor('Ian2', '', 'orcidsssIan2', 'nationalityssssIan', 'birthCountrysssIan',
+                                      'birthCitysssIan',
+                                      'birthStatessssIan')]
+                               ), "expected": 1.0}
+
 ])
+
+
 class CompletudeTestCase(unittest.TestCase):
     def test_completude_registro(self):
         # Falsificação: Criar um cenário em que o campo está completo
-        # autor1 = Autor(title, publicationDate, language)
-        # autor2 = Autor('Jão', 'late2', '', 'nationalitysss2', 'birthCountryssss2', 'birthCityssss2', 'birthStatesss2')
-        # autores = [autor1, autor2]
-        # publicacao = Publicacao('titulo', 'data de publicacao', 'linguagem', autores)
-        print(completude_registro(self))
         self.assertEqual(completude_registro(self), 1.0)
 
         # # Duplicação: Criar um cenário em que o campo está duplicado
