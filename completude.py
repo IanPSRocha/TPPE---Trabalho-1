@@ -40,5 +40,21 @@ def completude_registro_or_exclusivo(self):
             return False
 
 
+def completude_registro_or_inclusivo(self):
+    """Função para calcular a completude de um registro OR Inclusivo
+       Retorna a quantidade de registros completos e incompletos"""
+
+    # Verificar completude dos campos aninhados OR inclusivo
+    for autor in range(len(self.autores)):
+        if ((completude_campo(self.autores[autor].nationality)) or (
+        completude_campo(self.autores[autor].birthCountry))
+                or (completude_campo(self.autores[autor].birthCity) or (
+                completude_campo(self.autores[autor].birthState)))):
+            return True
+        else:
+            return False
+
+
+
 
 
