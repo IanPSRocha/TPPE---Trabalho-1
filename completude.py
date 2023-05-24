@@ -54,7 +54,19 @@ def completude_registro_or_inclusivo(self):
         else:
             return False
 
+def completude_registro_atomico(self):
+    """Função para calcular a completude de um registro atômico       
+    Retorna a quantidade de registros completos e incompletos"""    
 
+    # Verificar completude dos campos atômicos    atomico_completo = []
+    atomico_incompleto = []
+    atomico_completo = []
+    campos_atomicos = [self.title, self.publicationDate, self.language]
 
+    for campo in campos_atomicos:
+        if completude_campo(campo):
+            atomico_completo.append(campo)
+        else:
+            atomico_incompleto.append(campo)
 
-
+    return len(atomico_completo) / len(atomico_incompleto + atomico_completo)

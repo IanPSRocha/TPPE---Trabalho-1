@@ -1,6 +1,6 @@
 import unittest
 from completude import completude_registro, Publicacao, Autor, completude_registro_or_exclusivo, \
-    completude_registro_or_inclusivo
+    completude_registro_or_inclusivo, completude_registro_atomico
 from parameterized import parameterized_class
 
 
@@ -57,3 +57,9 @@ class CompletudeTestCase(unittest.TestCase):
                                  )
         self.assertTrue(completude_registro_or_inclusivo(publicacao1))
 
+    def test_completude_registro_atomico(self):
+        publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
+                                 [Autor('Paulo', 'lattes1', 'orcidssspaulo', 'nationalitysssspaulo',
+                                        'birthCountryssspaulo', 'birthCityssspaulo', 'birthStatesssspaulo')]
+                                 )
+        self.assertEqual(completude_registro_atomico(publicacao1), 1.0)
