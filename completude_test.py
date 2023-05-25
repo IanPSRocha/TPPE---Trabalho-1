@@ -12,7 +12,8 @@ from parameterized import parameterized_class
                                 Autor('Paulo', 'lattes1', '', 'nationalitysssspaulo', 'birthCountryssspaulo',
                                      'birthCityssspaulo',
                                      'birthStatesssspaulo')])
-        , "expected": 1.0},
+        , "expected_total": 100.0,
+          "expected_or_exclusivo": 1.0},
     {"publicacao": Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                               [Autor('Paulo', '', 'dadsdsaads', 'nationalitysssspaulo', 'birthCountryssspaulo',
                                      'birthCityssspaulo',
@@ -20,7 +21,8 @@ from parameterized import parameterized_class
                                 Autor('Paulo', 'lattes1', 'orcid', 'nationalitysssspaulo', 'birthCountryssspaulo',
                                      'birthCityssspaulo',
                                      'birthStatesssspaulo')])
-        , "expected": 0.5},
+        , "expected_total": 83.33,
+          "expected_or_exclusivo": 0.5},
     {"publicacao": Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                               [Autor('Paulo', 'lattes1', 'dadsdsaads', 'nationalitysssspaulo', 'birthCountryssspaulo',
                                      'birthCityssspaulo',
@@ -28,11 +30,12 @@ from parameterized import parameterized_class
                                 Autor('Paulo', '', '', 'nationalitysssspaulo', 'birthCountryssspaulo',
                                      'birthCityssspaulo',
                                      'birthStatesssspaulo')])
-        , "expected": 0.0},
+        , "expected_total": 66.67,
+          "expected_or_exclusivo": 0.0},
 
 ])
 class CompletudeTestCase(unittest.TestCase):
-    #Toda publicação em porcentagem
+    #Testes multi-campos
     def test_completude_registro(self):
         publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                                  [Autor('Paulo', 'lattes1', 'orcide', 'nationalitysssspaulo',
@@ -49,7 +52,10 @@ class CompletudeTestCase(unittest.TestCase):
                                  )
         self.assertEqual(completude_registro(publicacao1), 100.0)
 
-    #Espera-se um booleano sobre registros completos e incompletos
+    def test_completude_registro_triangulado(self):
+        self.assertEqual(completude_registro(self.publicacao), self.expected_total)
+
+    #Testes campos or exclusivo
     def test_completude_registro_or_exclusivo(self):
         publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                                  [Autor('Paulo', 'lattes1', 'orcidssspaulo', 'nationalitysssspaulo',
@@ -58,7 +64,6 @@ class CompletudeTestCase(unittest.TestCase):
                                  )
         self.assertFalse(completude_registro_or_exclusivo(publicacao1))
 
-    # Espera-se um booleano sobre registros completos e incompletos
     def test_completude_registro_or_exclusivo_duplicado(self):
         publicacao2 = Publicacao('titulo2', 'data de publicacao2', 'linguagem2',
                                  [Autor('Jão', '', 'orcidsssJão', 'nationalityssssJão', 'birthCountrysssJão',
@@ -67,11 +72,10 @@ class CompletudeTestCase(unittest.TestCase):
 
         self.assertTrue(completude_registro_or_exclusivo(publicacao2))
 
-    # Espera-se um booleano sobre os registros complestos e incompletos
     def test_completude_registro_or_exclusivo_triangulado(self):
-        self.assertEqual(completude_registro_or_exclusivo(self.publicacao), self.expected)
+        self.assertEqual(completude_registro_or_exclusivo(self.publicacao), self.expected_or_exclusivo)
 
-    # Espera-se um booleano sobre os registros complestos e incompletos
+    #Teste campos or inclusivo
     def test_completude_registro_or_inclusivo(self):
         publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                                  [Autor('Paulo', 'lattes1', 'orcidssspaulo', 'nationalitysssspaulo',
@@ -79,6 +83,7 @@ class CompletudeTestCase(unittest.TestCase):
                                  )
         self.assertEqual(completude_registro_or_inclusivo(publicacao1), 1.0)
 
+    #Teste campos atomicos
     def test_completude_registro_atomico(self):
         publicacao1 = Publicacao('titulo1', 'data de publicacao1', 'linguagem1',
                                  [Autor('Paulo', 'lattes1', 'orcidssspaulo', 'nationalitysssspaulo',
