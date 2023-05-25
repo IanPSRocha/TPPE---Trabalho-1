@@ -12,3 +12,19 @@ Repositório destinado a documentar e elaborar a entrega do [primeiro trabalho d
 | Vinicius Edwardo Pereira Oliveira     | [@viniciused26](https://github.com/viniciused26)     | 160147816 |
 | Paulo Henrique Costa Gontijo          | [@paulohgontijoo](https://github.com/paulohgontijoo) | 150143800 |
 | André Goretti Motta                   | [@AGoretti](https://github.com/AGoretti)             | 160112028 |
+
+## Instalação
+
+Linguagem: Python3 <br>
+Para rodar o projeto é nescessário instalar o "parameterized". Para isso rode o comando com "pip3".
+
+>pip3 install parameterized
+
+Para rodar o programa:
+
+>python3 main.py
+
+Para rodar os testes:
+
+>python3 -m unittest completude_test.py
+
