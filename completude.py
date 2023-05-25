@@ -24,7 +24,6 @@ def completude_campo(campo):
     return False
 
 def completude_registro(self):
-
     porcentagem_atomica = completude_registro_atomico(self)
     porcentagem_or_exclusivo = completude_registro_or_exclusivo(self)
     porcentagem_or_inclusivo = completude_registro_or_inclusivo(self)
@@ -39,11 +38,15 @@ def completude_registro_or_exclusivo(self):
     exclusivo_incompleto = []
     # Verificar completude dos campos aninhados OR exclusivo
     for i in range(len(self.autores)):
+        if self.autores[i].lattes is None:
+            self.autores[i].lattes = ''
+        if self.autores[i].orcid is None:
+            self.autores[i].orcid = ''
         if completude_campo(self.autores[i].lattes) != completude_campo(self.autores[i].orcid):
             exclusivo_completo.append(self.autores[i])
         else:
             exclusivo_incompleto.append(self.autores[i])
-            
+
     return len(exclusivo_completo) / len(exclusivo_completo + exclusivo_incompleto)
 
 
@@ -55,6 +58,14 @@ def completude_registro_or_inclusivo(self):
     inclusivo_incompleto = []
     # Verificar completude dos campos aninhados OR inclusivo
     for i in range(len(self.autores)):
+        if self.autores[i].nationality is None:
+            self.autores[i].nationality = ''
+        if self.autores[i].birthCountry is None:
+            self.autores[i].birthCountry = ''
+        if self.autores[i].birthCity is None:
+            self.autores[i].birthCity = ''
+        if self.autores[i].birthState is None:
+            self.autores[i].birthState = ''
         if ((completude_campo(self.autores[i].nationality)) or (
         completude_campo(self.autores[i].birthCountry))
                 or (completude_campo(self.autores[i].birthCity) or (
@@ -79,5 +90,5 @@ def completude_registro_atomico(self):
             atomico_completo.append(campo)
         else:
             atomico_incompleto.append(campo)
-
+    
     return len(atomico_completo) / len(atomico_incompleto + atomico_completo)

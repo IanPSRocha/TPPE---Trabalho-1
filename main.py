@@ -1,5 +1,6 @@
 import json
-from completude import Autor,Publicacao
+from completude import Publicacao, Autor, completude_registro_or_exclusivo, \
+    completude_registro_or_inclusivo, completude_registro_atomico, completude_registro
 
 def jsonReader(file):
     with open (file, 'r') as f:
@@ -36,11 +37,15 @@ for publicacao in dadosJson:
     publicacoes.append(publicacao_objeto)
 
 for publicacao in publicacoes:
+
     print("Título: ", publicacao.title)
     print("Data de Publicação: ", publicacao.publicationDate)
     print("Idioma: ", publicacao.language)
 
-    print("Autores:\n")
+    completude_publicacao = completude_registro(publicacao)
+    print(f"A completude dos campos da publicação é de {completude_publicacao}%.")
+
+    print("Seus Autores:\n")
     for autor in publicacao.autores:
         print("Nome do Autor: ", autor.name)
         print("Lattes do Autor: ", autor.lattes)
